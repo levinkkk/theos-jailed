@@ -1,3 +1,5 @@
+include $(THEOS_MAKE_PATH)/targets/Darwin/config.mk
+
 ifeq ($(_THEOS_TARGET_LOADED),)
 _THEOS_TARGET_LOADED := 1
 THEOS_TARGET_NAME := iphone
@@ -27,7 +29,7 @@ endif
 # We have to figure out the target version here, as we need it in the calculation of the deployment version.
 _TARGET_VERSION_GE_6_0 = $(call __simplify,_TARGET_VERSION_GE_6_0,$(shell $(THEOS_BIN_PATH)/vercmp.pl $(_THEOS_TARGET_SDK_VERSION) ge 6.0))
 _TARGET_VERSION_GE_3_0 = $(call __simplify,_TARGET_VERSION_GE_3_0,$(shell $(THEOS_BIN_PATH)/vercmp.pl $(_THEOS_TARGET_SDK_VERSION) ge 3.0))
-_THEOS_TARGET_IPHONEOS_DEPLOYMENT_VERSION := $(or $(__THEOS_TARGET_ARG_$(word 2,$(_THEOS_TARGET_ARG_ORDER))),$(TARGET_IPHONEOS_DEPLOYMENT_VERSION),$(_SDKVERSION),3.0)
+_THEOS_TARGET_IPHONEOS_DEPLOYMENT_VERSION := $(or $(__THEOS_TARGET_ARG_$(word 2,$(_THEOS_TARGET_ARG_ORDER))),$(TARGET_IPHONEOS_DEPLOYMENT_VERSION),$(_SDKVERSION),7.0)
 
 ifeq ($(_THEOS_TARGET_IPHONEOS_DEPLOYMENT_VERSION),latest)
 override _THEOS_TARGET_IPHONEOS_DEPLOYMENT_VERSION := $(_LATEST_SDK)
@@ -52,7 +54,7 @@ TARGET_STRIP ?= xcrun -sdk iphoneos strip
 TARGET_STRIP_FLAGS ?= -x
 TARGET_CODESIGN_ALLOCATE ?= "$(shell xcrun -sdk iphoneos -find codesign_allocate)"
 TARGET_CODESIGN ?= codesign
-TARGET_CODESIGN_FLAGS ?= -fs "iPhone Developer" 
+TARGET_CODESIGN_FLAGS ?= -fs "$(_CER)"
 
 TARGET_PRIVATE_FRAMEWORK_PATH = $(SYSROOT)/System/Library/PrivateFrameworks
 

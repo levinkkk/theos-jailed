@@ -1,0 +1,6 @@
+framework module jspatch {
+  umbrella header "jspatch.h"
+
+  export *
+  module * { export * }
+}

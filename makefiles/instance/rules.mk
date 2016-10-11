@@ -174,5 +174,4 @@ ifeq ($$(findstring DEBUG,$$(THEOS_SCHEMA)),)
 	$$(ECHO_STRIPPING)$$(TARGET_STRIP) $$(ALL_STRIP_FLAGS) "$$@"$$(ECHO_END)
 endif
 endef
-
 $(eval $(call __mod,instance/rules.mk))
